@@ -35,14 +35,14 @@ var_export
 ```
 
 ```
-// 打印sql语句
+  // 打印sql语句
 
-\DB::connection()->enableQueryLog();
+  \DB::connection()->enableQueryLog();
 
-数据库操作
+  数据库操作
 
-$sql = \DB::connection()->getQueryLog();
-\DB::connection()->disableQueryLog();
+  $sql = \DB::connection()->getQueryLog();
+  \DB::connection()->disableQueryLog();
 ```
 
 ```
@@ -160,6 +160,69 @@ https://github.com/Piplin/Piplin
 ```
 
 ```
-代理网站
+// 代理网站
 https://free-ss.site/
+```
+
+```
+// mac软件下载
+http://xclient.info/
+```
+
+```
+// 数据库重复判断
+select client_guid,level,type,stage,count(*) from data_achievements_record group by client_guid,level,type,stage having count(*) > 1
+```
+
+```
+// 整理好的各种学习资源的 github
+https://github.com/EbookFoundation/free-programming-books/blob/master/free-programming-books-zh.md
+// zsh 增强shell
+https://github.com/robbyrussell/oh-my-zsh
+// github 使用技巧
+https://github.com/tiimgreen/github-cheat-sheet/
+// 面试资料
+https://github.com/francistao/LearningNotes
+```
+
+
+```
+1
+2
+271155
+16608
+7726
+4807
+7807
+11138
+20332
+62404
+116603
+165183
+210767
+252584
+276185
+310973
+344271
+290126
+261946
+220788
+153584
+121254
+104094
+97911
+95279
+77098
+61366
+41172
+27989
+21235
+15151
+12525
+11887
+12416
+8989
+4301
+2335
+981
 ```
