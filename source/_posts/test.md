@@ -1,4 +1,4 @@
----
+cd ---
 title: test
 date: 2017-12-07 23:46:21
 tags:
@@ -46,6 +46,9 @@ var_export
 ```
 
 ```
+lumen
+composer require symfony/var-dumper
+
 Chrome 6.2 以上版本使用 dump () 或者 dd () 时,network Preview 无法渲染问题
 
 当响应的状态码为400 or 500系列时可以使Preview渲染
@@ -72,6 +75,10 @@ $ grep -RHn --include \*.php Controller .
 $ history | grep 'php artisan'
   284  php artisan route:list
 $ !284
+
+查看占用端口进程， kill掉进程
+lsof -i :端口号
+kill -9 进程id
 ```
 
 ```
@@ -135,6 +142,12 @@ Redis 里面一个任务默认最多执行60秒，如果一个任务60秒没有�
 ```
 
 ```
+php 代码规范， 规范不对 不能提交
+https://laravel-china.org/articles/13006/recommend-a-phpcs-plug-in-to-standardize-laravel-code-specification-from-local-code-to-version-control
+```
+
+
+```
 批量入库时报错：prepared statement contains too many placeholders
 原因：占位符的个数大于mysql对占位符的最高限制65535。
   条数 * 字段数
@@ -145,8 +158,16 @@ laravel  App\Exceptions\Handler::render  方法可以自定义错误返回信息
 ```
 
 ```
-小程序框架
+// 内网穿透
+https://ngrok.com/docs
+// wepy
 https://tencent.github.io/wepy/
+// 美团开源 mpvue vue转小程序
+https://github.com/Meituan-Dianping/mpvue
+// 小程序版weiui
+https://github.com/weui/weui-wxss
+// laravel包
+jedrzej/searchable
 ```
 
 ```
@@ -162,11 +183,17 @@ https://github.com/Piplin/Piplin
 ```
 // 代理网站
 https://free-ss.site/
+http://webosss.com/tool/socket
+https://blog.csdn.net/lihuaichen/article/details/70340039
+
+digitalocean  搬瓦工
 ```
 
 ```
 // mac软件下载
 http://xclient.info/
+// 玩转苹果-苹果改变世界！
+http://www.ifunmac.com/
 ```
 
 ```
@@ -187,42 +214,111 @@ https://github.com/francistao/LearningNotes
 
 
 ```
-1
-2
-271155
-16608
-7726
-4807
-7807
-11138
-20332
-62404
-116603
-165183
-210767
-252584
-276185
-310973
-344271
-290126
-261946
-220788
-153584
-121254
-104094
-97911
-95279
-77098
-61366
-41172
-27989
-21235
-15151
-12525
-11887
-12416
-8989
-4301
-2335
-981
+vue 中 慎用 scoped
+https://segmentfault.com/a/1190000012184604?utm_source=tuicool&utm_medium=referral
+```
+
+```
+laradock 中遇到时间不同步问题， docker-composer down / up 不能生效，
+重启电脑后解决。
+没有试过 重启docker
+```
+
+
+```
+把localhost改成127.0.0.1成功
+
+把localhost改成127.0.0.1后竟然连接成功了，开始陷入思考困局：localhost失败127.0.0.1却成功？
+
+ping localhost 地址是127.0.0.1没错
+
+打开hosts加入
+
+复制代码代码如下:
+
+127.0.0.1 qttc
+
+使用qttc当主机连接也正常，唯独就不认localhost。
+localhost连接方式不同导致
+
+为了了解PHP连接数据库时，主机填写localhost与其它的区别阅读了大量资料，最后得知：
+
+当主机填写为localhost时mysql会采用 unix domain socket连接
+当主机填写为127.0.0.1时mysql会采用tcp方式连接
+这是linux套接字网络的特性，win平台不会有这个问题
+
+解决方法
+
+在my.cnf的[mysql]区段里添加
+
+复制代码代码如下:
+protocol=tcp
+
+保存重启MySQL，问题解决！
+```
+
+```
+对接接口时  可以用这个去看参数
+file_get_contents('php://input')
+```
+
+```
+$res = app('db')->getQueryLog();
+foreach ($res as $sql) {
+    $tmp = str_replace("?", "'%s'", $sql['query']);
+    array_unshift($sql['bindings'], $tmp);
+    file_put_contents('../storage/logs/sql.log', call_user_func_array('sprintf', $sql['bindings']) . "\n\r", FILE_APPEND);
+}
+file_put_contents('../storage/logs/sql.log', "\n\r\n\r", FILE_APPEND);
+```
+
+```
+// 打印表结构
+select `TABLE_NAME`, `COLUMN_NAME`, `COLUMN_TYPE`, `IS_NULLABLE`, `COLUMN_COMMENT`, `COLUMN_KEY`, `EXTRA` from `information_schema`.`columns` where `table_schema` = ? group by `TABLE_NAME
+```
+
+```
+MySQL开启日志
+
+2、开启日志模式
+
+-- 1、设置
+
+-- SET GLOBAL log_output = 'TABLE';SET GLOBAL general_log = 'ON';  //日志开启
+
+-- SET GLOBAL log_output = 'TABLE'; SET GLOBAL general_log = 'OFF';  //日志关闭
+
+-- 2、查询
+
+SELECT * from mysql.general_log ORDER BY event_time DESC;
+
+-- 3、清空表（delete对于这个表，不允许使用，只能用truncate）
+
+-- truncate table mysql.general_log;
+
+```
+
+
+```
+http://phpstorm.tips/tips/5-jump-to-next-previous-method
+
+关于快捷键， 请确认 没有其他软件占用快捷键
+
+php strom快捷键
+
+mac                                           win
+
+将新光标添加到光标当前下一个词的出现处
+ctrl + G                                      alt + j
+删除最后添加的光标。
+ctrl + shift + G                              shift + ctrl + j
+
+alt + 拖动光标，选择多行光标
+
+左侧导航的 锁定的按钮，快速定位文件
+
+快速定位方法和属性
+cmd + F12                                      ctrl + F12
+
+
 ```
